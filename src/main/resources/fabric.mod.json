@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "optionfocusfix",
+  "version": "${version}",
+  "name": "Option Focus Fix",
+  "description": "Fixes yet another stupid bug from mojank lol",
+  "authors": [
+    "ChloeCDN"
+  ],
+  "contact": {
+    "repo": "https://github.com/chloecdn/optionfocusfix"
+  },
+  "license": "MIT",
+  "icon": "assets/optionfocusfix/icon.png",
+  "environment": "client",
+  "entrypoints": {},
+  "mixins": [
+    "optionfocusfix.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.19",
+    "minecraft": ">=1.19.4"
+  },
+  "accessWidener": "optionfocusfix.accesswidener"
+}

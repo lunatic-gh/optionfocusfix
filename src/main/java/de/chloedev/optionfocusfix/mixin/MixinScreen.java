@@ -3,7 +3,7 @@ package de.chloedev.optionfocusfix.mixin;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.OptionListWidget;
+import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,9 +28,9 @@ public class MixinScreen {
                 if (!e1.isHovered()) {
                     e1.setFocused(false);
                 }
-            } else if (e instanceof OptionListWidget e1) {
+            } else if (e instanceof ElementListWidget<?> e1) {
                 e1.children().forEach(e2 -> {
-                    if (!e2.hoveredElement(mouseX, mouseY).isPresent()) {
+                    if (e2.hoveredElement(mouseX, mouseY).isEmpty()) {
                         e2.setFocused(null);
                     }
                 });

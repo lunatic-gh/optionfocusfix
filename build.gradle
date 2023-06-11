@@ -1,10 +1,6 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.2-SNAPSHOT'
     id 'maven-publish'
-}
-
-loom {
-    accessWidenerPath = new File("src/main/resources/optionfocusfix.accesswidener")
 }
 
 version = project.mod_version

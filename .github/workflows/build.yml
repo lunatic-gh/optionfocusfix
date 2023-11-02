@@ -1,13 +1,6 @@
 name: Publish on GitHub
 on: [ pull_request, push ]
 
-env:
-  MINECRAFT_VERSION: 1.20.2
-  JAVA_VERSION: 17
-  VERSION: 1.2.1
-  RELEASE_NAME: Option Focus Fix 1.20.2
-  GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
-
 permissions:
   contents: write
 
@@ -15,8 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Environment Variables
-        run: env
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
@@ -26,21 +17,19 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-          
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
-
       - name: Build
         run: ./gradlew clean build
-
       - name: Publish
+        id: fabric-publish
         uses: softprops/action-gh-release@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
           tag_name: ${{ github.ref }}
-          name: OptionFocusFix ${{ env.VERSION }}
+          name: OptionFocusFix
           draft: true
-          prerelease: true
+          prerelease: false
           files: |
-            build/libs/*.jar
+            build/libs/optionfocusfix-*.jar

@@ -33,17 +33,14 @@ jobs:
 
       - name: Build
         run: ./gradlew clean build
-        
-      - name: Publish on GitHub
-        uses: Kir-Antipov/mc-publish@v3.2                                   
+
+      - name: Publish
+        uses: softprops/action-gh-release@v1
         with:
-          github-tag: "v${{env.VERSION}}"
-          github-token: "${{env.GITHUB_TOKEN}}"
-          name: "${{env.RELEASE_NAME}}"                             
-          version: "${{env.VERSION}}"
-          version-type: release
-          loaders: fabric
-          game-versions: "${{env.MINECRAFT_VERSION}}"
-          java: "${{env.JAVA_VERSION}}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.ref }}
+          name: OptionFocusFix ${{ env.VERSION }}
+          draft: true
+          prerelease: true
           files: |
             build/libs/*.jar

@@ -17,7 +17,6 @@ jobs:
     steps:
       - name: Check Environment Variables
         run: env
-
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:

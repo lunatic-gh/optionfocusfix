@@ -13,6 +13,4 @@ jobs:
     steps:
       - uses: Kir-Antipov/mc-publish@v3.2
         with:
-          files: |
-            build/libs/*.jar
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -3,7 +3,6 @@ on: [ pull_request, push ]
 
 permissions:
   contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,10 +22,9 @@ jobs:
       - name: Build
         run: ./gradlew clean build
       - name: Publish
-        id: fabric-publish
         uses: softprops/action-gh-release@v1
         with:
-          token: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ github.ref }}
           name: OptionFocusFix
           draft: true

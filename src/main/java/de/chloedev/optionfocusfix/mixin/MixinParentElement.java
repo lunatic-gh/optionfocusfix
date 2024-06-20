@@ -32,7 +32,7 @@ public interface MixinParentElement {
     }
 
     @Inject(method = "mouseClicked", at = @At("RETURN"))
-    default void fixFocus$dragged(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    default void fixFocus$clicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         this.children().forEach(element -> {
             if ((element instanceof SliderWidget) && (element.isMouseOver(mouseX, mouseY))) element.setFocused(true);
         });

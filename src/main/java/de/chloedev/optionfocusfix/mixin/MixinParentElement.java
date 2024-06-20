@@ -3,6 +3,7 @@ package de.chloedev.optionfocusfix.mixin;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.ParentElement;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.SliderWidget;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +20,7 @@ public interface MixinParentElement {
     List<? extends Element> children();
 
     @Inject(method = "mouseClicked", at = @At(value = "RETURN", ordinal = 0))
-    default void fixFocus$clicked$1(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    default void fixFocus$clicked$0(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         this.children().forEach(element -> element.setFocused(false));
     }
 
@@ -27,6 +28,13 @@ public interface MixinParentElement {
     default void fixFocus$released(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         this.children().forEach(element -> {
             if (!(element instanceof TextFieldWidget)) element.setFocused(false);
+        });
+    }
+
+    @Inject(method = "mouseClicked", at = @At("RETURN"))
+    default void fixFocus$dragged(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+        this.children().forEach(element -> {
+            if ((element instanceof SliderWidget) && (element.isMouseOver(mouseX, mouseY))) element.setFocused(true);
         });
     }
 }

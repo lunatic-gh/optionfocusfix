@@ -20,7 +20,9 @@ public interface MixinParentElement {
 
     @Inject(method = "mouseClicked", at = @At(value = "RETURN", ordinal = 0))
     default void fixFocus$clicked$0(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        this.children().forEach(element -> element.setFocused(false));
+        this.children().forEach(element -> {
+            if (!(element instanceof TextFieldWidget)) element.setFocused(false);
+        });
     }
 
     @Inject(method = "mouseReleased", at = @At("RETURN"))

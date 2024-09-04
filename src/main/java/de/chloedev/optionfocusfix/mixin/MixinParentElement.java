@@ -19,14 +19,14 @@ public interface MixinParentElement {
     List<? extends Element> children();
 
     @Inject(method = "mouseClicked", at = @At(value = "RETURN", ordinal = 0))
-    default void fixFocus$clicked$0(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    default void forceUnfocus(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         this.children().forEach(element -> {
             if (!(element instanceof TextFieldWidget)) element.setFocused(false);
         });
     }
 
     @Inject(method = "mouseReleased", at = @At("RETURN"))
-    default void fixFocus$released(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    default void unfocusOnRelease(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         this.children().forEach(element -> {
             if (!(element instanceof TextFieldWidget)) element.setFocused(false);
         });

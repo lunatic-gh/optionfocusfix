@@ -18,7 +18,7 @@ public interface MixinParentElement {
     @Shadow
     List<? extends Element> children();
 
-    @Inject(method = "mouseClicked", at = @At(value = "RETURN", ordinal = 0))
+    @Inject(method = "mouseClicked", at = @At(value = "RETURN", ordinal = 1))
     default void forceUnfocus(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         this.children().forEach(element -> {
             if (!(element instanceof TextFieldWidget)) element.setFocused(false);
